@@ -1,0 +1,81 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background-image: url('../photos/background-img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7); /* Transparent background for the content */
+    border-radius: 15px;
+}
+
+/* Header styling */
+header h1 {
+    font-size: 3rem;
+    color: #ffcc00; /* Bold yellow to stand out */
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    padding: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Header cells with bold, golden color */
+th {
+    background-color: #ffcc00;
+    color: #2a9d8f; /* Fitness-inspired teal */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Row styling */
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+tr:hover {
+    background-color: rgba(42, 157, 143, 0.7); /* Teal hover effect */
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
