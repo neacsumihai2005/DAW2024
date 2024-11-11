@@ -2,69 +2,54 @@
 
 ## Architecture Overview
 
-The application follows the **Model-View-Controller (MVC)** design pattern, a common and efficient architectural approach that separates the application into three main components:
+The application follows the Model-View-Controller (MVC) design pattern, a widely used approach that separates the logic of the application into three main components:
 
-- **Model**: Handles the data logic and business rules.
-- **View**: Responsible for displaying data to the user (the user interface).
-- **Controller**: Acts as an intermediary between the Model and View, processing user inputs, manipulating data, and updating the view.
+- **Model**: Handles the data logic, interacts with the database, and performs business rules.
+- **View**: Responsible for rendering the data to the user interface.
+- **Controller**: Acts as an intermediary between the Model and View. It processes user input, updates the model, and refreshes the view accordingly.
 
-## Roles, Entities, and Processes
+## Roles, Entities, and Relationships
 
 ### Roles:
-1. **Client**: A user who signs up to the application to use its features.
-2. **Trainer**: An instructor who can manage group classes and individual training sessions for clients.
-3. **Owner**: The administrator who manages the overall gym or fitness center, including user management and class scheduling.
+- **Client**: A user who registers for the gym services to track their workouts, records, and training sessions.
+- **Trainer**: A fitness instructor who manages group classes and works with clients individually.
+- **Owner**: The administrator responsible for overseeing gym operations, managing users, and scheduling group classes.
 
 ### Entities:
-- **Users**: Includes clients, trainers, and owners. All users have an account, and each has specific roles and permissions.
-- **Classes**: Both group and individual training sessions, with details like schedule, capacity, and instructor.
-- **Workouts**: Specific exercises or routines that can be assigned to clients.
-- **Records**: Personal records (PRs) for each client related to their fitness progress (e.g., best weight lifted, fastest time).
-- **Schedule**: A timetable for classes and personal training sessions.
 
-## Relationships Between Entities
-- **Users and Classes**: Users can either be clients attending a class or trainers offering the classes.
-- **Users and Workouts**: Clients are assigned specific workouts and track their personal records.
-- **Trainers and Clients**: Trainers can have multiple clients, each with personalized workouts.
-- **Owner and Users**: Owners manage the users, ensuring they can create accounts, modify roles, and oversee the entire system.
+1. **Users**: 
+   - This table contains all users in the system (clients, trainers, and owners).
+   - Fields: id, first_name, last_name, email, password, role_id, date_of_birth, phone_number.
 
-## Database Design
+2. **Exercises**: 
+   - Contains a list of exercises available for clients and trainers to use in their workouts.
+   - Fields: id, name, description, category, youtube_video_id.
 
-The database is designed to store all relevant data for users, classes, workouts, and records. It includes several key tables, such as:
+3. **Workouts**:
+   - Tracks the specific workouts that clients perform, including details about sets, reps, weight, etc.
+   - Fields: id, user_id (client), exercise_id, date, sets, reps, weight.
 
-1. **Users Table**: Stores details about each user (ID, name, role, login details).
-2. **Classes Table**: Stores group class details, including name, description, schedule, instructor, and capacity.
-3. **Workouts Table**: Stores the exercises that can be assigned to clients.
-4. **Personal Records Table**: Stores personal bests (PRs) for clients.
-5. **Client-Class Enrollment Table**: Manages which clients are attending which group classes.
-6. **Trainer-Class Assignment**: Keeps track of which trainers are teaching which classes.
+4. **Records**:
+   - Stores personal records (PRs) for each client, such as maximum weight lifted or best time for specific exercises.
+   - Fields: id, user_id, exercise_id, record_value, record_date.
 
-### Example of Database Tables
+5. **Trainers-Clients**:
+   - Establishes a many-to-many relationship between trainers and clients, defining which clients are assigned to which trainers, along with their start and end dates.
+   - Fields: trainer_id, client_id, start_date, end_date.
 
-```sql
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    role ENUM('client', 'trainer', 'owner'),
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(255)
-);
+6. **Training Sessions**:
+   - Stores information about training sessions between clients and trainers, including feedback and session duration.
+   - Fields: id, client_id, trainer_id, session_date, duration, feedback.
 
-CREATE TABLE classes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    description TEXT,
-    instructor_id INT,
-    schedule DATETIME,
-    capacity INT,
-    FOREIGN KEY (instructor_id) REFERENCES users(id)
-);
+7. **Subscriptions**:
+   - Tracks the subscriptions of clients, indicating the start and end dates, type (monthly, annual), and the status (active or expired).
+   - Fields: id, user_id, start_date, end_date, type, status.
 
-CREATE TABLE personal_records (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    exercise_name VARCHAR(100),
-    record_value FLOAT,
-    date_recorded DATE,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
+8. **Group Classes**:
+   - Contains the schedule and details for group classes, along with the instructor's information.
+   - Fields: id, name, description, instructor_id, schedule, capacity.
+
+## Database Description
+
+The database for the fitness room management system is structured to support the core functionalities of the application. It handles users (clients, trainers, and owners), their subscriptions, records, and workouts, along with managing group classes and training sessions. The relationships between entities are well-defined using foreign keys to ensure data integrity.
+
