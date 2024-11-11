@@ -22,12 +22,6 @@ The application follows the **Model-View-Controller (MVC)** design pattern, a co
 - **Records**: Personal records (PRs) for each client related to their fitness progress (e.g., best weight lifted, fastest time).
 - **Schedule**: A timetable for classes and personal training sessions.
 
-### Processes:
-- **Registration and Login**: Users (clients, trainers, or owners) can register, log in, and manage their profiles.
-- **Scheduling Classes**: Trainers and owners can schedule group or individual classes and assign them to clients.
-- **Tracking Progress**: Clients can track their workout progress and personal records.
-- **Admin Management**: Owners can manage users, classes, and other administrative tasks.
-
 ## Relationships Between Entities
 - **Users and Classes**: Users can either be clients attending a class or trainers offering the classes.
 - **Users and Workouts**: Clients are assigned specific workouts and track their personal records.
