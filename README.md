@@ -54,5 +54,8 @@ The application follows the Model-View-Controller (MVC) design pattern, a widely
 The database for the fitness room management system is structured to support the core functionalities of the application. It handles users (clients, trainers, and owners), their subscriptions, records, and workouts, along with managing group classes and training sessions. The relationships between entities are well-defined using foreign keys to ensure data integrity.
 
 ## Host
-Will be added soon, hopefully today (I've spent the past hours trying to make it work).
+[/SalaFitness/users/index](http://neacsumihai-daw2024.infinityfreeapp.com/SalaFitness/users/index)
+[/SalaFitness/exercises/index](http://neacsumihai-daw2024.infinityfreeapp.com/SalaFitness/exercises/index)
+[/SalaFitness/classes/index](http://neacsumihai-daw2024.infinityfreeapp.com/SalaFitness/classes/index)
+[/SalaFitness/classes/today](http://neacsumihai-daw2024.infinityfreeapp.com/SalaFitness/classes/today)
 
