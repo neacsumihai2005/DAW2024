@@ -97,9 +97,9 @@ CREATE TABLE group_classes (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- Identificator unic al clasei
     name VARCHAR(255) NOT NULL,                  -- Numele clasei (de exemplu: Yoga, Spinning)
     description TEXT,                            -- Descrierea clasei
-    instructor_id INT,                          -- ID-ul antrenorului care predă clasa (referință la tabelul users)
-    schedule DATETIME,                          -- Data și ora la care se ține clasa
-    capacity INT,                               -- Capacitatea maximă a clasei
+    instructor_id INT,                          -- ID-ul antrenorului care preda clasa (referinta la tabelul users)
+    schedule DATETIME,                          -- Data si ora la care se tine clasa
+    capacity INT,                               -- Capacitatea maxima a clasei
     FOREIGN KEY (instructor_id) REFERENCES users(id) -- Antrenorul este un utilizator (trainer)
 );
 
@@ -118,11 +118,11 @@ INSERT INTO users (first_name, last_name, email, password, role_id, date_of_birt
 ('Andrei', 'Vasilescu', 'andrei.vasilescu@example.com', '$2y$10$Dcv55ZBljOjmO0S5n3FEO8W5dC6YX6VgJr2llT/lt4Zc9gnxCwHsq', 3, '1980-03-10', '0734567890');
 
 -- Inserarea datelor pentru exercises
-INSERT INTO exercises (name, description, category) VALUES
-('Squat', 'Exercițiu pentru picioare care lucrează coapsele și fesierii', 'Strength', 'l83R5PblSMA'),
-('Push-up', 'Exercițiu pentru piept, umeri și triceps', 'Strength', '3qCnU1TZboY'),
-('Running', 'Exercițiu cardio pentru îmbunătățirea rezistenței', 'Cardio', 'N9C88z3g0Es'),
-('Deadlift', 'Exercițiu de forță pentru spate și picioare', 'Strength', '2SJ9HkKaxwU');
+INSERT INTO exercises (name, description, category, youtube_video_id) VALUES
+('Squat', 'Exercitiu pentru picioare care lucreaza coapsele si fesierii', 'Strength', 'l83R5PblSMA'),
+('Push-up', 'Exercitiu pentru piept, umeri si triceps', 'Strength', '3qCnU1TZboY'),
+('Running', 'Exercitiu cardio pentru imbunatatirea rezistentei', 'Cardio', 'N9C88z3g0Es'),
+('Deadlift', 'Exercitiu de forta pentru spate si picioare', 'Strength', '2SJ9HkKaxwU');
 
 -- Inserarea datelor pentru workouts
 INSERT INTO workouts (user_id, exercise_id, date, sets, reps, weight) VALUES
@@ -141,7 +141,7 @@ INSERT INTO trainers_clients (trainer_id, client_id, start_date, end_date) VALUE
 
 -- Inserarea datelor pentru training_sessions
 INSERT INTO training_sessions (client_id, trainer_id, session_date, duration, feedback) VALUES
-(1, 2, '2024-11-01 10:00:00', 60, 'Antrenament de forță foarte bun pentru picioare și spate');
+(1, 2, '2024-11-01 10:00:00', 60, 'Antrenament de forta foarte bun pentru picioare si spate');
 
 -- Inserarea datelor pentru subscriptions
 INSERT INTO subscriptions (user_id, start_date, end_date, type, status) VALUES
@@ -151,6 +151,6 @@ INSERT INTO subscriptions (user_id, start_date, end_date, type, status) VALUES
 -- Inserare clase de grup
 INSERT INTO group_classes (name, description, instructor_id, schedule, capacity) 
 VALUES 
-('Yoga', 'Clasa de yoga pentru toate nivelele, cu focus pe relaxare și flexibilitate.', 2, '2024-11-12 18:00:00', 20),
-('Pilates', 'Clasa de Pilates pentru tonifiere și îmbunătățirea posturii.', 3, '2024-11-13 10:00:00', 15);
+('Yoga', 'Clasa de yoga pentru toate nivelele, cu focus pe relaxare si flexibilitate.', 2, '2024-11-12 18:00:00', 20),
+('Pilates', 'Clasa de Pilates pentru tonifiere si imbunatatirea posturii.', 3, '2024-11-13 10:00:00', 15);
 
