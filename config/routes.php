@@ -4,6 +4,10 @@ $routes = [
     "SalaFitness/exercises/index" => ["ExerciseController", "index"],
     "SalaFitness/classes/index" => ["GroupClassController", "index"],
     "SalaFitness/classes/today" => ["GroupClassController", "today"],
+    "SalaFitness/home" => ["HomeController", "index"], 
+    "SalaFitness/dashboard" => ["DashboardController", "index"], 
+    "SalaFitness/register" => ["RegisterController", "index"], 
+    "SalaFitness/dashboard/delete" => ["UserController", "delete"]  // Noua rută pentru ștergere
 ];
 
 class Router {
