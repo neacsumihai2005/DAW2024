@@ -7,49 +7,70 @@ The application follows the Model-View-Controller (MVC) design pattern, a widely
 - **Model**: Handles the data logic, interacts with the database, and performs business rules.
 - **View**: Responsible for rendering the data to the user interface.
 - **Controller**: Acts as an intermediary between the Model and View. It processes user input, updates the model, and refreshes the view accordingly.
+## Database: `gym_management`
 
-## Roles, Entities, and Relationships
+The `gym_management` database is designed for managing a fitness gym or sports club, keeping track of users, exercises, workouts, and group classes. It consists of four primary tables: `exercises`, `group_classes`, `users`, and `workouts`. Below is a detailed explanation of each table and its relationships.
 
-### Roles:
-- **Client**: A user who registers for the gym services to track their workouts, records, and training sessions.
-- **Trainer**: A fitness instructor who manages group classes and works with clients individually.
-- **Owner**: The administrator responsible for overseeing gym operations, managing users, and scheduling group classes.
+### Tables
 
-### Entities:
+#### 1. **exercises**
+The `exercises` table stores the exercises available in the gym. Each exercise has a name, description, category (e.g., Strength, Cardio), and a YouTube video ID for instructional purposes.
 
-1. **Users**: 
-   - This table contains all users in the system (clients, trainers, and owners).
-   - Fields: id, first_name, last_name, email, password, role_id, date_of_birth, phone_number.
+- **Columns:**
+  - `id`: Primary key, unique identifier for each exercise.
+  - `name`: The name of the exercise.
+  - `description`: A brief description of the exercise.
+  - `category`: The type/category of the exercise (e.g., Strength, Cardio).
+  - `youtube_video_id`: The YouTube video ID for the exercise tutorial.
 
-2. **Exercises**: 
-   - Contains a list of exercises available for clients and trainers to use in their workouts.
-   - Fields: id, name, description, category, youtube_video_id.
+#### 2. **group_classes**
+The `group_classes` table tracks the group fitness classes offered in the gym. Each class has a name, description, instructor, schedule, and capacity.
 
-3. **Workouts**:
-   - Tracks the specific workouts that clients perform, including details about sets, reps, weight, etc.
-   - Fields: id, user_id (client), exercise_id, date, sets, reps, weight.
+- **Columns:**
+  - `id`: Primary key, unique identifier for each class.
+  - `name`: The name of the group class (e.g., Yoga, Pilates).
+  - `description`: A brief description of the class.
+  - `instructor_id`: Foreign key referencing the `users` table for the instructor of the class.
+  - `schedule`: The scheduled date and time for the class.
+  - `capacity`: The maximum number of participants allowed in the class.
 
-4. **Records**:
-   - Stores personal records (PRs) for each client, such as maximum weight lifted or best time for specific exercises.
-   - Fields: id, user_id, exercise_id, record_value, record_date.
+#### 3. **users**
+The `users` table contains information about the gym's users, including their personal details and roles (e.g., Admin, Instructor, Member). This table is also used for storing user login credentials (passwords are hashed for security).
 
-5. **Trainers-Clients**:
-   - Establishes a many-to-many relationship between trainers and clients, defining which clients are assigned to which trainers, along with their start and end dates.
-   - Fields: trainer_id, client_id, start_date, end_date.
+- **Columns:**
+  - `id`: Primary key, unique identifier for each user.
+  - `first_name`: The user's first name.
+  - `last_name`: The user's last name.
+  - `email`: The user's email address (unique).
+  - `password`: The hashed password for user authentication.
+  - `role_id`: The user's role (e.g., Admin, Instructor, Member).
+  - `date_of_birth`: The user's date of birth.
+  - `phone_number`: The user's phone number.
 
-6. **Training Sessions**:
-   - Stores information about training sessions between clients and trainers, including feedback and session duration.
-   - Fields: id, client_id, trainer_id, session_date, duration, feedback.
+#### 4. **workouts**
+The `workouts` table records the individual workout sessions for each user, linking them to exercises. It tracks the number of sets, reps, and weight (if applicable) for each exercise.
 
-7. **Subscriptions**:
-   - Tracks the subscriptions of clients, indicating the start and end dates, type (monthly, annual), and the status (active or expired).
-   - Fields: id, user_id, start_date, end_date, type, status.
+- **Columns:**
+  - `id`: Primary key, unique identifier for each workout record.
+  - `user_id`: Foreign key referencing the `users` table for the user performing the workout.
+  - `exercise_id`: Foreign key referencing the `exercises` table for the exercise performed.
+  - `sets`: The number of sets for the exercise.
+  - `reps`: The number of repetitions per set.
+  - `weight`: The weight used for the exercise (if applicable).
+  - `date`: Timestamp indicating when the workout was logged.
 
-8. **Group Classes**:
-   - Contains the schedule and details for group classes, along with the instructor's information.
-   - Fields: id, name, description, instructor_id, schedule, capacity.
+### Relationships
 
-## Database Description
+- The `group_classes` table has a foreign key `instructor_id` that references the `users` table. This indicates which instructor is teaching a particular class.
+- The `workouts` table has two foreign keys:
+  - `user_id`: References the `users` table to identify which user performed the workout.
+  - `exercise_id`: References the `exercises` table to identify which exercise was performed during the workout.
 
-The database for the fitness room management system is structured to support the core functionalities of the application. It handles users (clients, trainers, and owners), their subscriptions, records, and workouts, along with managing group classes and training sessions. The relationships between entities are well-defined using foreign keys to ensure data integrity.
+### Sample Data
+The database includes sample data such as exercises like `Squat`, `Push-up`, and `Running`, as well as group classes like `Yoga` and `Pilates`. User data is also included with sample users like `Maria Ionescu`, `Andrei Vasilescu`, and `Mihai Neacsu`.
 
+### Setup Instructions
+
+1. Import the SQL dump into your MySQL database.
+2. Ensure that your PHP application connects to the `gym_management` database.
+3. Use the tables and data to manage gym users, workouts, exercises, and classes.
