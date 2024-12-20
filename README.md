@@ -1,12 +1,14 @@
 # Fitness Room Management System
-Host: http://neacsumihai-daw2024.infinityfreeapp.com/DAW2024
+Host: [http://neacsumihai-daw2024.infinityfreeapp.com/DAW2024](http://neacsumihai-daw2024.infinityfreeapp.com/DAW2024)
+
 ## Architecture Overview
 
-The application follows the Model-View-Controller (MVC) design pattern, a widely used approach that separates the logic of the application into three main components:
+The application follows the **Model-View-Controller (MVC)** design pattern, a widely used approach that separates the logic of the application into three main components:
 
 - **Model**: Handles the data logic, interacts with the database, and performs business rules.
 - **View**: Responsible for rendering the data to the user interface.
 - **Controller**: Acts as an intermediary between the Model and View. It processes user input, updates the model, and refreshes the view accordingly.
+
 ## Database: `gym_management`
 
 The `gym_management` database is designed for managing a fitness gym or sports club, keeping track of users, exercises, workouts, and group classes. It consists of four primary tables: `exercises`, `group_classes`, `users`, and `workouts`. Below is a detailed explanation of each table and its relationships.
