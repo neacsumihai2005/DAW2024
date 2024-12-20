@@ -11,9 +11,9 @@
 
     <!-- Formularul de login -->
     <div class="login-container">
-        <h1>Autentificare</h1>
 
         <form action="/DAW2024/login" method="POST">
+            <h1>Autentificare</h1>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Introduceți adresa de email" required>
 
@@ -23,7 +23,7 @@
             <button type="submit">Autentificare</button>
         </form>
 
-        <p>Nu ai cont? <a href="/DAW2024/register">Înregistrează-te aici</a></p>
+        <p>Nu ai cont? <a href="/DAW2024/register/formular">Înregistrează-te aici</a></p>
     </div>
 
 </body>

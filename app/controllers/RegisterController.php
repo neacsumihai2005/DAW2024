@@ -1,18 +1,23 @@
 <?php
 class RegisterController {
+    public static function formular(){
+        // Încarcă view-ul pentru înregistrare
+        require_once 'app/views/register/index.php';
+    }
 
     public static function index() {
+
         // Verifică dacă formularul de înregistrare a fost trimis
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Preia datele din formular
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $email = $_POST['email'];
-            $phone = $_POST['phone_number']; // Noul câmp pentru telefon
+            $phone_number = $_POST['phone_number']; // Noul câmp pentru telefon
             $password = $_POST['password'];
-
+            
             // Verifică reCAPTCHA
-            $recaptcha_secret = '6LeYeKEqAAAAAI7O2eA1Ncdwgv8rgn0xe4RqutFg'; // Secret Key-ul tău
+            $recaptcha_secret = 'YOUR_SECRET_KEY'; // Secret Key-ul tău
             $recaptcha_response = $_POST['g-recaptcha-response'];
             $recaptcha_verify_url = 'https://www.google.com/recaptcha/api/siteverify';
 
@@ -32,13 +37,13 @@ class RegisterController {
             // Inserare utilizator în baza de date
             global $pdo;
             try {
-                $query = "INSERT INTO users (first_name, last_name, email, phone, password, role_id) 
-                          VALUES (:first_name, :last_name, :email, :phone, :password, 1)";  // 1 pentru rolul de client
+                $query = "INSERT INTO users (first_name, last_name, email, phone_number, password, role_id) 
+                          VALUES (:first_name, :last_name, :email, :phone_number, :password, 1)";  // 1 pentru rolul de client
                 $stmt = $pdo->prepare($query);
                 $stmt->bindParam(':first_name', $first_name);
                 $stmt->bindParam(':last_name', $last_name);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':phone', $phone); // Stocăm și telefonul
+                $stmt->bindParam(':phone_number', $phone_number); // Stocăm și telefonul
                 $stmt->bindParam(':password', $hashed_password); // Stocăm parola criptată
                 $stmt->execute();
             } catch (PDOException $e) {
@@ -48,12 +53,9 @@ class RegisterController {
             }
 
             // Redirect după înregistrare
-            header("Location: /DAW2024/home");
+            header("Location: /DAW2024");
             exit();
         }
-
-        // Încarcă view-ul pentru înregistrare
-        require_once 'app/views/register/index.php';
     }
 }
 ?>

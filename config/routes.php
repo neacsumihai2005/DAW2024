@@ -5,6 +5,7 @@ $routes = [
     "DAW2024/login" => ["HomeController", "login"], 
     "DAW2024/logout" => ["HomeController", "logout"], 
     "DAW2024/register" => ["RegisterController", "index"], 
+    "DAW2024/register/formular" => ["RegisterController", "formular"], 
     "DAW2024/exercises/index" => ["ExerciseController", "index"],
     "DAW2024/exercises/formular" => ["ExerciseController", "formular"],
     "DAW2024/exercises/store" => ["ExerciseController", "store"],

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Înregistrare</title>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeYeKEqAAAAAJFtMPom48D-fpGmBj0Lb14S7p1S"></script>
+    <!-- Scriptul pentru Google reCAPTCHA v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="/DAW2024/app/views/register/styles.css">
 </head>
 <body>
-    <h1>Înregistrare utilizator</h1>
-    <form id="register-form" action="DAW2024/register" method="POST">
+    <form id="register-form" action="/DAW2024/register" method="POST">
+        <h1>Înregistrare utilizator</h1>
+
         <label for="first_name">Prenume:</label>
         <input type="text" id="first_name" name="first_name" required><br><br>
 
@@ -24,19 +27,10 @@
         <label for="password">Parolă:</label>
         <input type="password" id="password" name="password" required><br><br>
 
-        <button type="button" class="g-recaptcha" 
-                data-sitekey="6LeYeKEqAAAAAJFtMPom48D-fpGmBj0Lb14S7p1S" 
-                data-callback="onSubmit" 
-                data-action="submit">
-            Înregistrează-te
-        </button>
-    </form>
+        <!-- Google reCAPTCHA v2 -->
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div><br><br>
 
-    <script>
-        function onSubmit(token) {
-            // Trimite formularul doar dacă reCAPTCHA este validat
-            document.getElementById("register-form").submit();
-        }
-    </script>
+        <button type="submit">Înregistrează-te</button>
+    </form>
 </body>
 </html>
