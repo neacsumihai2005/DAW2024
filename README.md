@@ -1,5 +1,5 @@
 # Fitness Room Management System
-
+Host: http://neacsumihai-daw2024.infinityfreeapp.com/DAW2024
 ## Architecture Overview
 
 The application follows the Model-View-Controller (MVC) design pattern, a widely used approach that separates the logic of the application into three main components:
