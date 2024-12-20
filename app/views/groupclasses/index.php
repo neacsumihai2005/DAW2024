@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Group Classes</title>
-    <link rel="stylesheet" href="\SalaFitness\app\views\groupclasses\styles.css">
+    <link rel="stylesheet" href="\DAW2024\app\views\groupclasses\styles.css">
 </head>
 <body>
 <h1>All Group Classes</h1>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Exercises</title>
-    <link rel="stylesheet" href="\SalaFitness\app\views\exercises\styles.css">
+    <link rel="stylesheet" href="\DAW2024\app\views\exercises\styles.css">
 </head>
 <body>
     <div class="container">
