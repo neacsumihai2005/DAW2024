@@ -73,6 +73,61 @@ The database includes sample data such as exercises like `Squat`, `Push-up`, and
 
 ### Setup Instructions
 
-1. Import the SQL dump into your MySQL database.
-2. Ensure that your PHP application connects to the `gym_management` database.
-3. Use the tables and data to manage gym users, workouts, exercises, and classes.
+1. **Import the SQL dump into your MySQL database.**
+2. **Ensure that your PHP application connects to the `gym_management` database.**
+3. **Use the tables and data to manage gym users, workouts, exercises, and classes.**
+4. **Install dependencies using Composer**:
+   - Make sure you have Composer installed on your server. If not, you can install it by running the following command:
+     ```bash
+     curl -sS https://getcomposer.org/installer | php
+     ```
+     Or, for global installation on a Linux/macOS-based system:
+     ```bash
+     sudo mv composer.phar /usr/local/bin/composer
+     ```
+   - Once Composer is installed, navigate to the root directory of your PHP application and run the following command to install the dependencies defined in your `composer.json` file:
+     ```bash
+     composer install
+     ```
+   - This command will download and install all required libraries, including **PHPMailer**, **phpdotenv**, and other packages defined in `composer.json`.
+
+5. **Configure PHPMailer**:
+   - PHPMailer is used for sending emails, such as for confirming user registration.
+   - To configure PHPMailer, you need to add your SMTP server credentials in the `.env` file. Add the following environment variables:
+     ```dotenv
+     MAIL_HOST=smtp.example.com
+     MAIL_SMTPAUTH=true
+     MAIL_USERNAME=your_email@example.com
+     MAIL_PASSWORD=your_email_password
+     MAIL_SMTPSECURE=STARTTLS
+     MAIL_PORT=587
+     ```
+   - Replace the values with your actual email server configuration details.
+
+6. **Configure `.env` with vlucas/phpdotenv**:
+   - **phpdotenv** is used to load environment variables from the `.env` file. These variables are essential for storing sensitive information like API keys and email credentials.
+   - Make sure you have an `.env` file in the root directory of your application with the following environment variables:
+     ```dotenv
+     RECAPTCHA_SECRET=your_recaptcha_secret
+     RECAPTCHA_SITEKEY=your_recaptcha_sitekey
+     ```
+   - In your PHP application, you need to load the variables from the `.env` file using `phpdotenv`. Typically, this is done in your main application file (e.g., `index.php` or a similar file):
+     ```php
+     use Dotenv\Dotenv;
+
+     $dotenv = Dotenv::createImmutable(__DIR__);
+     $dotenv->load();
+     ```
+     This code will load all the variables from the `.env` file into your application's environment.
+
+7. **Configure the database and reCAPTCHA**:
+   - Make sure the environment variables for the database connection and reCAPTCHA are correctly set in the `.env` file:
+     ```dotenv
+     DB_HOST=localhost
+     DB_NAME=gym_management
+     DB_USER=your_db_user
+     DB_PASSWORD=your_db_password
+     ```
+
+8. Continue using the application to manage gym users, workouts, and exercises.
+
