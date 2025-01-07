@@ -1,2 +1,4 @@
 # Ignore database config file
 config/config.php
+.env
+vendor/

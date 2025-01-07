@@ -28,7 +28,7 @@
         <input type="password" id="password" name="password" required><br><br>
 
         <!-- Google reCAPTCHA v2 -->
-        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div><br><br>
+        <div class="g-recaptcha" data-sitekey="6Lc7j6EqAAAAANcHLRf38wJidIkAFxKuoHWrWk6X"></div><br><br>
 
         <button type="submit">Înregistrează-te</button>
     </form>

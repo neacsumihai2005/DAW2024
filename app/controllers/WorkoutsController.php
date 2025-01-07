@@ -1,6 +1,11 @@
 <?php
 class WorkoutsController {
     public static function save() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /DAW2024');
+            exit();
+        }
+        
         global $pdo;
         // Obține lista de exerciții din baza de date
         $stmt = $pdo->prepare("SELECT id, name FROM exercises");
@@ -40,6 +45,11 @@ class WorkoutsController {
     public static function index() {
         // Obține lista de exerciții din baza de date
         
+        if (!isset($_SESSION['user'])) {
+            header('Location: /DAW2024');
+            exit();
+        }
+
         global $pdo;
         
         $stmt = $pdo->prepare("SELECT id, name FROM exercises");
@@ -50,19 +60,41 @@ class WorkoutsController {
         $userRole = $_SESSION['user']['role_id'];
 
         if($userRole == 1){
-            // Obține toate workout-urile utilizatorului
-            $query = "SELECT w.sets, w.reps, w.weight, e.name AS exercise_name, w.date 
-                    FROM workouts w 
-                    JOIN exercises e ON w.exercise_id = e.id
-                    WHERE w.user_id = :user_id 
-                    ORDER BY w.date DESC";
+            // În controller-ul tău, preia și datele statistice
+            $query = "SELECT w.sets, w.reps, w.weight, e.name AS exercise_name, w.date, e.id AS exercise_id
+            FROM workouts w 
+            JOIN exercises e ON w.exercise_id = e.id
+            WHERE w.user_id = :user_id 
+            ORDER BY w.date DESC";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
-            
+
+            // Preluăm toate workout-urile
             $workouts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            require_once 'app/views/workouts/userIndex.php'; // Aici încarci un view care să afișeze datele
+            // Creăm un array pentru exerciții
+            $query_exercises = "SELECT id, name FROM exercises";
+            $stmt_exercises = $pdo->prepare($query_exercises);
+            $stmt_exercises->execute();
+
+            // Preluăm toate exercițiile disponibile
+            $exercises = $stmt_exercises->fetchAll(PDO::FETCH_ASSOC);
+
+            // Creăm un array cu datele pentru grafic
+            $graph_data = [];
+            foreach ($workouts as $workout) {
+            $graph_data[] = [
+            'date' => $workout['date'],
+            'weight' => $workout['weight'],
+            'reps' => $workout['reps'],
+            'exercise_id' => $workout['exercise_id']
+            ];
+            }
+
+            // Trimitem datele către view
+            require_once 'app/views/workouts/userIndex.php';
+
         }
         else {
             // Obține toate workout-urile tuturor utilizatorilor

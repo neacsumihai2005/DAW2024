@@ -22,6 +22,9 @@
         <a href="/DAW2024/workouts/index">
             <button class="dashboard-btn">See Your Workouts</button>
         </a>
+        <a href="/DAW2024/news">
+            <button class="dashboard-btn">See Fitness News</button>
+        </a>
     </div>
 
     <!-- Butonul de ștergere a contului -->

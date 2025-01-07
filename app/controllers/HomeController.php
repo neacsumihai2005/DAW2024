@@ -24,26 +24,31 @@ class HomeController {
             global $pdo;
 
             // Caută utilizatorul după email
-            $query = "SELECT id, first_name, last_name, password, email, role_id FROM users WHERE email = :email";
+            $query = "SELECT id, first_name, last_name, password, email, role_id, is_verified FROM users WHERE email = :email";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-            // Verifică dacă utilizatorul există și parola este corectă
-            if ($user && $password === $user['password']) { // Înlocuiește verificarea cu password_verify pentru hash
-                // Autentificare reușită
-                session_start();
-                $_SESSION['user'] = [
-                    'email' => $user['email'],
-                    'id' => $user['id'],
-                    'first_name' => $user['first_name'],
-                    'last_name' => $user['last_name'],
-                    'role_id' => $user['role_id']  // Adaugă role_id aici
-                ];
-                header("Location: /DAW2024/dashboard");
-                exit();
+            // Verifică dacă utilizatorul există, parola este corectă și emailul este confirmat
+            if ($user && password_verify($password, $user['password'])) {
+                if ($user['is_verified'] == 1) {
+                    // Autentificare reușită și utilizatorul a confirmat email-ul
+                    session_start();
+                    $_SESSION['user'] = [
+                        'email' => $user['email'],
+                        'id' => $user['id'],
+                        'first_name' => $user['first_name'],
+                        'last_name' => $user['last_name'],
+                        'role_id' => $user['role_id']  // Adaugă role_id aici
+                    ];
+                    header("Location: /DAW2024/dashboard");
+                    exit();
+                } else {
+                    // Dacă utilizatorul nu a confirmat email-ul
+                    require_once 'app/views/home/index.php'; // Reîncarcă view-ul
+                    return;
+                }
             } else {
                 // Autentificare eșuată
                 $error_message = "Email sau parolă incorectă.";

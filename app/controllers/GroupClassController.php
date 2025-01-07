@@ -42,6 +42,10 @@ class GroupClassController{
     }
 
     public static function save() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /DAW2024');
+            exit();
+        }
         global $pdo;
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

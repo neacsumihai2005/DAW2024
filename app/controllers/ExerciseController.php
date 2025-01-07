@@ -29,6 +29,10 @@ class ExerciseController{
     }
 
     public static function store() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /DAW2024');
+            exit();
+        }
         // Verificăm dacă formularul a fost trimis prin POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Preluăm datele din formular
